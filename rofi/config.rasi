@@ -1,0 +1,84 @@
+@theme "/dev/null"
+
+* {
+    /* SETTINGS */
+    highlight:                    bold;
+    scrollbar:                    false;
+
+    background-color: #282828;
+    border:                       0;
+    margin:                       0;
+    padding:                      0;
+    spacing:                      0;
+}
+
+configuration {
+    font:                         "JetBrainsMono NF 10";
+/*    font:                         "Terminus 10"; */
+    show-icons:                   false;
+
+    display-drun:                 "   Apps ";
+    display-run:                  "   Run ";
+    display-window:               " 﩯  Window ";
+    display-ssh:                  "   ssh ";
+
+    disable-history:              false;
+    sidebar-mode:                 true;
+    levenshtein-sort:             true;
+}
+
+window {
+  width:                          20%;
+  border:                         1px;
+  border-color:                   #504945;
+}
+
+element {
+  padding:                        8 0;
+  text-color:                     #504945;
+}
+
+element selected {
+  text-color:                     #9c917c;
+}
+
+element-text {
+  background-color:               inherit;
+  text-color:                     inherit;
+  vertical-align:                 0.5;
+}
+
+element-icon {
+  size:                           30;
+}
+
+entry {
+  background-color:               #1d2021;
+  padding:                        12;
+  text-color:                     #fbf1c7;
+}
+
+inputbar {
+  children:                       [prompt, entry];
+}
+
+listview {
+  padding:                        8 12;
+  background-color:               #282828;
+  columns:                        1;
+  lines:                          8;
+}
+
+mainbox {
+  background-color:               #282828;
+  children:                       [inputbar, listview];
+}
+
+prompt {
+  background-color:               #1d2021;
+  enabled:                        true;
+  padding:                        12 0 0 12;
+  text-color:                     #fbf1c7;
+}
+
+/* vim: ft=sass

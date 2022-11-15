@@ -1,0 +1,113 @@
+/* vim:ft=css */
+* {
+    /* COLORS */
+    background:                   #1d2021;
+    background-color:             #1d2021;
+    foreground:                   #ebdbb2;
+    border-color:                 #1d2021;
+    seperatorcolor:               #1d2021;
+    text-color:                   #ebdbb2;
+
+    normal-background:            #1d2021;
+    normal-foreground:            #9C917C;
+    alternate-normal-background:  #1d2021;
+    alternate-normal-foreground:  #9C917C;
+    selected-normal-background:   #3C3836;
+    selected-normal-foreground:   #EBDBB2;
+
+    active-background:            #2b3033;
+    active-foreground:            #ebdbb2;
+    alternate-active-background:  #31383d;
+    alternate-active-foreground:  #ebdbb2;
+    selected-active-background:   #374047;
+    selected-active-foreground:   #fbf1c7;
+
+    urgent-background:            #cc241d;
+    urgent-foreground:            #ebdbb2;
+    alternate-urgent-background:  #cc241d;
+    alternate-urgent-foreground:  #ebdbb2;
+    selected-urgent-background:   #374047;
+    selected-urgent-foreground:   #ebdbb2;
+
+    /* SETTINGS */
+    font:                         "JetBrainsMono NF 8";
+    highlight:                    bold italic;
+    scrollbar:                    false;
+}
+
+configuration {
+    modi: "window,drun,run,ssh";
+    width: 100%;
+    lines: 1;
+    columns: 1;
+    font: "JetBrainsMono NF 8";
+
+    bw: 1;
+    show-icons: false;
+    terminal: "kitty";
+    drun-match-fields: "name,categories";
+    levenshtein-sort: true;
+    sidebar-mode: true;
+    disable-history: true;
+
+    combi-modi: "drun,run";
+    matching: "fuzzy";
+
+    combi-hide-mode-prefix: true;
+
+    display-window: "类";
+    display-drun: "";
+    display-run: "";
+    display-ssh: "";
+
+    vertical-align: 0.5;
+}
+
+
+#window {
+    anchor:     north;
+    location:   north;
+    width:      100%;
+    padding:    0px;
+    border:     0px;
+    children:   [ horibox ];
+}
+
+#horibox {
+    orientation: horizontal;
+    children:   [ prompt, entry, listview ];
+}
+
+#prompt {
+  font: "JetBrainsMono NF 12";
+  expand:       false;
+  padding:      0em 0.38em;
+
+  text-color: #ebdbb2;
+  background-color: #3c3836;
+}
+
+#listview {
+    layout:     horizontal;
+    spacing:    0px;
+    border:     0px;
+    lines:      100;
+}
+
+#entry {
+    expand:     false;
+    width:      10em;
+    padding:    0.22em 0.1em;
+
+    text-color: #9C917C;
+
+    placeholder: "Type to filter ";
+    placeholder-color: #9c917c;
+
+    cursor: pointer;
+}
+
+#element {
+    padding: 0.21em 0.3em;
+    border:  0px;
+}

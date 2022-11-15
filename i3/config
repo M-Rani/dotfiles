@@ -1,0 +1,432 @@
+# KEY DEFINITIONS TO REMEMBER
+# $Mod    = WINDOWS key or Super key or Mod4
+# Mod1    = ALT key
+# Control = CTRL key
+# Shift   = SHIFT key
+# Escape  = ESCAPE key
+# Return  = ENTER or RETURN key
+# Pause   = PAUSE key
+# Print   = PRINT key
+# Tab     = TAB key
+
+# Set Colors
+set $hc-color           #FFFFFF
+set $bg-color           #262626
+set $sc-color           #FFFFFF
+set $fg-color           #FFFFFF
+
+# Black + DarkGrey
+set $color0             #262626
+set $color8             #928374
+
+# DarkRed + Red
+set $color1             #cc241d
+set $color9             #fb4934
+
+# DarkGreen + Light Green
+set $color2             #98971a
+set $color10            #b8bb26
+
+# DarkYellow + Yellow
+set $color3             #d79921
+set $color11            #fabd2f
+
+# DarkBlue + Blue
+set $color4             #458588
+set $color12            #83a598
+
+# DarkMagenta + FFFFFF
+set $color5             #b16286
+set $color13            #d3869b
+
+# DarkCyan + Cyan
+set $color6             #689d6a
+set $color14            #8ec07c
+
+# LightGrey + White
+set $color7             #a89984
+set $color15            #ebdbb2
+# Border
+set $color16            #404040
+
+# set $borderInactive     #928374
+set $borderInactive     #403a37
+set $borderActive       #504945
+
+# Window Colors
+#                       Border            Background          Text              Indicator
+client.focused          $borderActive     $borderActive       $borderActive     $borderActive
+client.focused_inactive $borderInactive   $borderInactive     $borderInactive   $borderInactive
+client.unfocused        $borderInactive   $borderInactive     $borderInactive   $borderInactive
+client.urgent           $color9           $color9             $color9           $color9
+client.background       $bg-color
+
+# Set variables
+set $Terminal kitty --class="i3_term" -1 --instance-group="i3_term_group"
+set $Locker betterlockscreen -l dim --display 1 --off 120
+set $Wallpaper betterlockscreen -w
+set $drunApplauncher rofi -show drun -monitor DP-2
+set $runApplauncher rofi -show run -monitor DP-2
+
+# Exec on Startup
+exec --no-startup-id mousetrap -t 3
+exec --no-startup-id dunst
+exec --no-startup-id ~/.config/i3/scripts/i3-volume-cap.sh
+exec --no-startup-id dunstify \
+  -u normal \
+  -a "i3-startup-notification" \
+  -i "~/.face" \
+  -r 10 \
+  "Welcome back $(whoami | sed 's/\([[:alpha:]]\)/\U\1/')!" \
+  "<b>$(uname -r)</b>\n<i>$(date '+%A %b %d, %Y %H:%M %Z')</i>"
+
+# Exec on Startup/Refresh
+exec_always --no-startup-id ~/.config/i3/scripts/i3-autolock-screen.sh
+exec_always --no-startup-id picom --experimental-backends --backend glx -cCFb
+exec_always --no-startup-id autotiling -w 1 2 3 4 5 6 7 8 9
+
+# Status Bar - Polybar, Conky
+exec_always --no-startup-id ~/.config/conky/scripts/conky-launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+# Display
+exec_always --no-startup-id xrandr \
+  --output DVI-D-0 --off \
+  --output HDMI-0 --mode 1920x1080 --refresh 144.00 --pos 1920x0 --rotate right\
+  --output DP-0 --off \
+  --output DP-1 --off \
+  --output DP-2 --primary --mode 1920x1080 --refresh 240.30 --pos 0x840 --rotate normal \
+  --output DP-3 --off \
+  --output DP-4 --off \
+  --output DP-5 --off \
+  && $Wallpaper
+
+# Disable Floating Windows
+for_window [class="i3_term"] floating disable
+
+# Enable Floating Windows
+for_window [window_role=no"pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_role="About"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [instance="__scratchpad"] floating enable
+for_window [instance="Godot_Engine"] floating enable
+for_window [class="pinentry-gtk-2"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Gpick"] floating enable
+for_window [class="Xmessage"] floating enable
+for_window [class="RKrenamer"] floating enable
+for_window [class="Gxmessage"] floating enable
+for_window [class="Galculator"] floating enable
+for_window [class="lxappearance"] floating enable
+for_window [class="QjackCtl"] floating enable
+for_window [class="Diffmerge"] floating enable
+for_window [class="Crow Translate"] floating enable
+for_window [class="obs"] floating enable
+for_window [class="kitty"] floating enable
+for_window [class="Conky"] floating enable
+
+# Titlebars
+# No titles, minimal borders in tile mode
+for_window [class=".*"] border pixel 1
+# default_border pixel 1
+# default_floating_border pixel 1
+
+show_marks yes
+hide_edge_borders none
+
+# Hide Titlebars
+font pango:JetBrainsMono Nerd Font 0
+
+# Gaps
+# gaps [inner|outer|horizontal|vertical|top|left|bottom|right] <px>
+# workspace <ws> gaps [inner|outer|horizontal|vertical|top|left|bottom|right] <px>
+ gaps inner 3
+ gaps outer 0
+# smart_gaps on
+# smart_borders on
+
+# i3-gaps-rounded
+# border_radius 10
+
+# Gaps Mode
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: ( + | - | 0 ) (local), Shift + ( + | - | 0 ) (global)
+set $mode_gaps_inner Inner Gaps: ( + | - | 0 ) (local), Shift + ( + | - | 0 ) (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 2
+        bindsym minus gaps inner current minus 2
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 2
+        bindsym Shift+minus gaps inner all minus 2
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 2
+        bindsym minus gaps outer current minus 2
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 2
+        bindsym Shift+minus gaps outer all minus 2
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# Assign
+set $mod Mod4
+set $alt Mod1
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# Lockscreen
+bindsym $mod+Shift+x exec --no-startup-id $Locker
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Keyboard Audio Controls
+bindsym $alt+Shift+Up exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym $alt+Shift+Down exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym Ctrl+$alt+t exec $Terminal
+
+# Application Launcher/Run launcher
+bindsym $mod+d exec $runApplauncher
+bindsym $mod+shift+d exec $drunApplauncher
+
+# Screen Capture Shortcuts
+bindsym Print exec ~/.config/i3/scripts/i3-screencap.sh primary
+bindsym $mod+Print exec ~/.config/i3/scripts/i3-screencap.sh region-select
+bindsym $mod+Shift+Print exec ~/.config/i3/scripts/i3-screencap.sh region-record
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# kill focused window
+bindsym $mod+q kill
+
+# Alt-Tab focus switcher, move mouse to currently focused window
+bindsym $alt+Tab exec ~/.config/i3/scripts/i3-alt-tab.py next current && ~/.config/i3/scripts/i3-mouse-move.sh
+bindsym $alt+Shift+Tab exec ~/.config/i3/scripts/i3-alt-tab.py prev current && ~/.config/i3/scripts/i3-mouse-move.sh
+
+# change focus
+bindsym $mod+h exec i3-msg focus left && ~/.config/i3/scripts/i3-mouse-move.sh
+bindsym $mod+j exec i3-msg focus down && ~/.config/i3/scripts/i3-mouse-move.sh
+bindsym $mod+k exec i3-msg focus up && ~/.config/i3/scripts/i3-mouse-move.sh
+bindsym $mod+l exec i3-msg focus right && ~/.config/i3/scripts/i3-mouse-move.sh
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left exec i3-msg focus left && ~/.config/i3/scripts/i3-mouse-move.sh
+bindsym $mod+Down exec i3-msg focus down && ~/.config/i3/scripts/i3-mouse-move.sh
+bindsym $mod+Up exec i3-msg focus up && ~/.config/i3/scripts/i3-mouse-move.sh
+bindsym $mod+Right exec i3-msg focus right && ~/.config/i3/scripts/i3-mouse-move.sh
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+s split h
+bindsym $mod+Shift+s split v
+
+# Polybar toggle
+bindsym $mod+b exec polybar-msg cmd toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+# bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Disable Mouse Warping 
+mouse_warping none
+focus_follows_mouse no
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Workspaces
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+
+# use daemon to handle workspace names
+# exec_always --no-startup-id exec i3-workspace-names-daemon -l 20
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "0"
+
+# Set Workspaces for DP-2 (primary)
+workspace 1 output DP-2
+workspace 2 output DP-2
+workspace 3 output DP-2
+workspace 4 output DP-2
+workspace 5 output DP-2
+workspace 7 output DP-2
+workspace 6 output DP-2
+workspace 8 output DP-2
+workspace 9 output DP-2
+
+# Set Workspaces for HDMI-0 (secondary)
+workspace 0 output HDMI-0
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1 
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Cycle through Workspaces
+bindsym $mod+Tab workspace next
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Scratchpad
+bindsym F12 exec --no-startup-id "i3-scratchpad -d800x600 -p-2,22 -sDP-2 -t kitty -1 --instance-group=i3_term_group"
+bindsym $mod+v exec --no-startup-id "i3-scratchpad -d800x600 -p-2,22 -sDP-2 -wt pavucontrol"
+
+# bindsym $alt+Shift+1 exec --no-startup-id "i3-scratchpad -d1200x720 -sDP-2 -wt brave"
+# bindsym $alt+Shift+2 exec --no-startup-id "i3-scratchpad -d1200x720 -sDP-2 -wt pcmanfm"
+# bindsym $alt+Shift+3 exec --no-startup-id "i3-scratchpad -d1200x720 -sDP-2 -wt thunderbird"
+# bindsym $alt+Shift+4 exec --no-startup-id "i3-scratchpad -d1200x720 -sDP-2 -wt discord-canary"
+
+# Restart/Reload
+# CONFIG the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Resize Mode
+# resize window (you can also use the mouse for that)
+bindsym $mod+Ctrl+Right resize grow width 1 px or 1 ppt
+bindsym $mod+Ctrl+l resize grow width 1 px or 1 ppt
+
+bindsym $mod+Ctrl+h resize shrink width 1 px or 1 ppt
+
+bindsym $mod+Ctrl+Down resize grow height 1 px or 1 ppt
+bindsym $mod+Ctrl+j resize grow height 1 px or 1 ppt
+
+bindsym $mod+Ctrl+Up resize shrink height 1 px or 1 ppt
+bindsym $mod+Ctrl+k resize shrink height 1 px or 1 ppt
+
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+    bindsym h resize shrink width 1 px or 1 ppt
+    bindsym j resize grow height 1 px or 1 ppt
+    bindsym k resize shrink height 1 px or 1 ppt
+    bindsym l resize grow width 1 px or 1 ppt
+
+  # modify amount with shift
+    bindsym Shift+h resize shrink width 5 px or 5 ppt
+    bindsym Shift+j resize grow height 5 px or 5 ppt
+    bindsym Shift+k resize shrink height 5 px or 5 ppt
+    bindsym Shift+l resize grow width 5 px or 5 ppt
+
+  # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 1 px or 1 ppt
+    bindsym Down resize grow height 1 px or 1 ppt
+    bindsym Up resize shrink height 1 px or 1 ppt
+    bindsym Right resize grow width 1 px or 1 ppt
+
+  # modify arrow key amount
+    bindsym Shift+Left resize shrink width 5 px or 5 ppt
+    bindsym Shift+Down resize grow height 5 px or 5 ppt
+    bindsym Shift+Up resize shrink height 5 px or 5 ppt
+    bindsym Shift+Right resize grow width 5 px or 5 ppt
+
+  # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    #back to normal
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"
