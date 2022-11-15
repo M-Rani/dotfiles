@@ -1,0 +1,9 @@
+#!/bin/bash
+
+script="${0##*/}" url="$1"
+
+notify-send --urgency low "$script" "started $url"~
+if youtube-dl -o "$HOME/Downloads/youtube-dl/%(title)s-%(id)s.%(ext)s" "$url"
+then notify-send --urgency normal   "$script" "finished $url"
+else notify-send --urgency normal "$script" "failed $url"
+fi

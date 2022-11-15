@@ -1,0 +1,4 @@
+#!/bin/bash
+
+script="${0##*/}" url="$1"
+echo "$url" | tr -d '\n' | xclip -sel c

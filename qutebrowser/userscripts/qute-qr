@@ -1,0 +1,43 @@
+#!/bin/bash
+
+SCRIPT="${0##*/}"
+
+while [[ $# > 0 ]]; do
+  case $1 in
+    -e|--encode)
+      QUTE_ENCODE=$2
+      shift
+      shift
+      ;;
+    -d|--decode)
+      QUTE_DECODE=$2
+      shift 
+      shift 
+      ;;
+  esac
+done
+
+if [[ $QUTE_ENCODE ]]; then
+  # remove unwanted characters/substrings
+  QR_NAME="$(echo $QUTE_ENCODE | cut -d / -f 3 |\
+    sed 's/www.//' |\
+    sed 's/open.//'|\
+    sed 's/.com//' |\
+    sed 's/.org//' |\
+    tr -d '!@#$%^&*()_+{}[]:\\|;\"\'' =')"
+  QR_LOCATION="$HOME/Pictures/qr-codes/$QR_NAME$(date +%s).png"
+
+  if qrencode -o "$QR_LOCATION" "$QUTE_ENCODE"
+  then echo "successful QR code ($QR_LOCATION)"
+  else echo "failed to make QR code"
+  fi 
+fi
+
+if [[ $QUTE_DECODE ]]; then
+  if TARGET=$(qrscanner $(echo $QUTE_DECODE | sed 's/file:\/\///') -c)
+  then echo "Opening... $TARGET" && qutebrowser --target tab $TARGET &>/dev/null
+  else echo "failed to open QR code"
+  fi
+fi
+
+exit 0
