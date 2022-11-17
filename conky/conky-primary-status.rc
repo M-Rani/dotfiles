@@ -1,0 +1,112 @@
+conky.config = {
+-- WINDOW
+   own_window = true,
+   own_window_type = 'override',
+   own_window_transparent = true,
+   own_window_colour = '#000000',
+   own_window_class = 'conky',
+   own_window_title = 'conky',
+
+   xinerama_head = 1,
+   alignment = 'top_right',
+             gap_x = 10,
+             gap_y = 10,
+   minimum_height = 0,
+   minimum_width = 375,
+
+-- FONTS
+   use_xft = true,
+   font = 'JetBrainsMono NF:size=10',
+   xftalpha = 1,
+   override_utf8_locale = true,
+
+-- COLORS
+   draw_shades = false,
+   default_shade_color = '#1d2021',
+   draw_outline = false,
+   default_outline_color = '#1d2021',
+
+   default_color = '#9c917c',
+   color0 = '#1d2021',
+
+-- BORDERS
+   draw_border = false,
+   strippled_borders = 2,
+   border_inner_margin = 5,
+   border_outer_margin = 5,
+   border_width = 1,
+
+-- MISC
+   background = true,
+   user_space = 'none',
+   no_buffers = true,
+--imlib_cache_size = 0,
+   double_buffer = true,
+   update_interval = 1,
+};
+
+conky.text = [[
+${color #8b8c1b}$hr
+${font JetBrainsMono NF:weight=Bold:size=14}${voffset -5}SYSTEM${color #9c917c}
+${font JetBrainsMono NF:weight=Bold:size=11}
+${voffset -10}\
+${tab 50}${font JetBrainsMono NF:weight=Bold:size=11}${kernel} \
+      ${font JetBrainsMono NF:size=11}${alignr}${exec uname -n}
+${tab 50}${font JetBrainsMono NF:weight=Bold:size=11}Uptime \
+      ${font JetBrainsMono NF:size=11}${alignr}${uptime}
+
+${voffset -10}\
+${color #8b8c1b}$hr
+${font JetBrainsMono NF:weight=Bold:size=14}${voffset -5}CORES${color #9c917c}
+${font JetBrainsMono NF:weight=Bold:size=11}
+${tab 50}${voffset -10}USAGE ${alignr}${cpu cpuX}%${font JetBrainsMono NF:size=11}
+${tab 50}${voffset -10}$hr
+${voffset 1}\
+${tab 50}• ${top name 1} ${alignr}${top cpu 1}%
+${tab 50}• ${top name 2} ${alignr}${top cpu 2}%
+${tab 50}• ${top name 3} ${alignr}${top cpu 3}%
+${tab 50}• ${top name 4} ${alignr}${top cpu 4}%
+${tab 50}• ${top name 5} ${alignr}${top cpu 5}%
+
+${voffset -10}\
+${color #8b8c1b}$hr
+${font JetBrainsMono NF:weight=Bold:size=14}${voffset -5}MEMORY${color #9c917c}
+${font JetBrainsMono NF:weight=Bold:size=11}
+${voffset -10}\
+${tab 50}RAM ${alignr}${mem} / ${memmax}%
+${voffset -2}\
+${tab 50}${membar 10,325}
+
+${voffset -10}\
+${tab 50}SWAP ${alignr}${swap} / ${swapmax}%
+${voffset -2}\
+${tab 50}${swapbar 10,325}
+${font JetBrainsMono NF:weight=Bold:size=11}
+${tab 50}${voffset -10}USAGE ${alignr}${memperc}%${font JetBrainsMono NF:size=11}
+${tab 50}${voffset -8}$hr
+${voffset -5}\
+${tab 50}• ${top_mem name 1} ${alignr}${top_mem mem 1}%
+${tab 50}• ${top_mem name 2} ${alignr}${top_mem mem 2}%
+${tab 50}• ${top_mem name 3} ${alignr}${top_mem mem 3}%
+${tab 50}• ${top_mem name 4} ${alignr}${top_mem mem 4}%
+${tab 50}• ${top_mem name 5} ${alignr}${top_mem mem 5}%
+
+${voffset -10}\
+${color #8b8c1b}$hr
+${font JetBrainsMono NF:weight=Bold:size=14}${voffset -5}CONNECTIONS${color #9c917c}
+${font JetBrainsMono NF:weight=Bold:size=11}
+${voffset -10}\
+${tab 50}Wired Connection
+${tab 50}${voffset -10}$hr${font JetBrainsMono NF:size=11}
+${tab 50}${voffset -5} ${downspeed enp4s0} ${alignr}祝 ${upspeed enp4s0}
+${font JetBrainsMono NF:weight=Bold:size=11}
+${voffset -5}\
+${tab 50}NordVPN ${font JetBrainsMono NF:size=8}${exec ~/.config/conky/scripts/conky-nord-uptime.sh}${font JetBrainsMono NF:weight=Bold:size=11} ${alignr}${voffset -5}${exec ~/.config/conky/scripts/conky-nord-country.sh}
+${tab 50}${voffset -10}$hr${font JetBrainsMono NF:size=11}
+${tab 50}${voffset -5} ${exec ~/.config/conky/scripts/conky-nord-transfer-recieved.sh} ${alignr}祝 ${exec ~/.config/conky/scripts/conky-nord-transfer-sent.sh}
+${font JetBrainsMono NF:weight=Bold:size=11}
+${voffset -5}\
+${tab 50}${essid enp4s0} ${font JetBrainsMono NF:size=8}${wireless_bitrate wlan0}${font JetBrainsMono NF:weight=Bold:size=11} ${alignr}${wireless_link_qual_perc wlan0}%
+${tab 50}${voffset -3}${link_bar 10,325 enp4s0}${font JetBrainsMono NF:size=11}
+${tab 50}${voffset -3} ${downspeed enp4s0} ${alignr}祝 ${upspeed wlan0}
+]];

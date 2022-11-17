@@ -1,0 +1,112 @@
+conky.config = {
+-- WINDOW
+   own_window = true,
+   own_window_type = 'override',
+   own_window_transparent = true,
+   own_window_colour = '#000000',
+   own_window_class = 'conky',
+   own_window_title = 'conky',
+
+   xinerama_head = 1,
+   alignment = 'top_right',
+             gap_x = 10,
+             gap_y = 10,
+   minimum_height = 0,
+   minimum_width = 400,
+
+-- FONTS
+   use_xft = true,
+   font = 'Terminus (TTF):size=10',
+   xftalpha = 1,
+   override_utf8_locale = true,
+
+-- COLORS
+   draw_shades = false,
+   default_shade_color = '#1d2021',
+   draw_outline = false,
+   default_outline_color = '#1d2021',
+
+   default_color = '#3B3832',
+   color0 = '#1d2021',
+
+-- BORDERS
+   draw_border = false,
+   strippled_borders = 2,
+   border_inner_margin = 5,
+   border_outer_margin = 5,
+   border_width = 1,
+
+-- MISC
+   background = true,
+   user_space = 'none',
+   no_buffers = true,
+--imlib_cache_size = 0,
+   double_buffer = true,
+   update_interval = 1,
+};
+
+conky.text = [[
+${color #4D483E}\
+${font Terminus (TTF):weight=Bold:size=24}SYSTEM${tab 5}${voffset 3}$hr\
+${color #3B3832}${font Terminus (TTF):size=16}
+Linux ${kernel} ${alignr}${exec uname -m}
+Host:     ${alignr}${exec uname -n}
+Uptime:   ${alignr}${uptime}
+
+${voffset -10}${color #4D483E}\
+${font Terminus (TTF):weight=Bold:size=24}CPU${tab 5}${voffset 3}$hr\
+${color #3B3832}${font Terminus (TTF):size=16}
+${exec cat /proc/cpuinfo | grep model\ name | cut -d : -f2 | head -n 1 | xargs}
+${cpugraph cpuX 50,400}
+Core   1: ${alignr}${cpu cpu1}% ${cpubar cpu1 10,250}
+Core   2: ${alignr}${cpu cpu2}% ${cpubar cpu2 10,250}
+Core   3: ${alignr}${cpu cpu3}% ${cpubar cpu3 10,250}
+Core   4: ${alignr}${cpu cpu4}% ${cpubar cpu4 10,250}
+Core   5: ${alignr}${cpu cpu5}% ${cpubar cpu5 10,250}
+Core   6: ${alignr}${cpu cpu6}% ${cpubar cpu6 10,250}
+Core   7: ${alignr}${cpu cpu7}% ${cpubar cpu7 10,250}
+Core   8: ${alignr}${cpu cpu8}% ${cpubar cpu8 10,250}
+Core   9: ${alignr}${cpu cpu9}% ${cpubar cpu9 10,250}
+Core  10: ${alignr}${cpu cpu10}% ${cpubar cpu10 10,250}
+Core  11: ${alignr}${cpu cpu11}% ${cpubar cpu11 10,250}
+Core  12: ${alignr}${cpu cpu12}% ${cpubar cpu12 10,250}
+
+${voffset -5}${color #4D483E}\
+${font Terminus (TTF):weight=Bold:size=24}MEMORY${tab 5}${voffset 3}$hr\
+${color #3B3832}${font Terminus (TTF):size=16}
+RAM ${alignr}${mem} / ${memmax}%
+${membar 10,400}
+
+${voffset -5}\
+SWAP ${alignr}${swap} / ${swapmax}%
+${swapbar 10,400}
+
+${voffset -5}${color #4D483E}\
+${font Terminus (TTF):weight=Bold:size=24}NETWORK${tab 5}${voffset 3}$hr\
+${color #3B3832}${font Terminus (TTF):size=16}
+${downspeedgraph enp4s0 50,400}
+${voffset -5}\
+Download: ${alignr}${downspeed enp4s0}
+Total:  ${alignr}${totaldown enp4s0}
+${upspeedgraph enp4s0 50,400}
+${voffset -5}\
+Upload: ${alignr}${upspeed enp4s0}
+Total:  ${alignr}${totalup enp4s0}
+
+${voffset -5}${color #4D483E}\
+${font Terminus (TTF):weight=Bold:size=24}PROCESSES${tab 5}${voffset 3}$hr\
+${color #3B3832}${font Terminus (TTF):size=16}
+Name         ${alignr}  PID     CPU     MEM
+${top name 1}${alignr} ${top pid 1}  ${top cpu 1}  ${top mem 1}
+${top name 2}${alignr} ${top pid 2}  ${top cpu 2}  ${top mem 2}
+${top name 3}${alignr} ${top pid 3}  ${top cpu 3}  ${top mem 3}
+${top name 4}${alignr} ${top pid 4}  ${top cpu 4}  ${top mem 4}
+${top name 5}${alignr} ${top pid 5}  ${top cpu 5}  ${top mem 5}
+${top name 6}${alignr} ${top pid 6}  ${top cpu 6}  ${top mem 6}
+${top name 7}${alignr} ${top pid 7}  ${top cpu 7}  ${top mem 7}
+${top name 8}${alignr} ${top pid 8}  ${top cpu 8}  ${top mem 8}
+${top name 9}${alignr} ${top pid 9}  ${top cpu 9}  ${top mem 9}
+${top name 10}${alignr} ${top pid 10}  ${top cpu 10}  ${top mem 10}
+
+Processes:   ${alignr}${processes}[${running_processes}]
+]];
